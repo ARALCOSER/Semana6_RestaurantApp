@@ -8,7 +8,7 @@ RAMIRO ALCOSER ALLAICA
 
 # 📖 Descripción
 
-Este proyecto fue desarrollado en Python utilizando los principios fundamentales de la Programación Orientada a Objetos (POO).
+Este proyecto fue desarrollado en Python utilizando los principios fundamentales de la Programación Orientada a Objetos - POO.
 
 El sistema permite administrar productos de un restaurante mediante una estructura basada en herencia, encapsulación y polimorfismo.
 

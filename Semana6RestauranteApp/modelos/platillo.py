@@ -25,4 +25,3 @@ class Platillo(Producto):
         print(f"Calorías: {self.calorias} kcal")
         print(f"Estado  : {'Disponible' if self.disponible else 'Agotado'}")
 
-
