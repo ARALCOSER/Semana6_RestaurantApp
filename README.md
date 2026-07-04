@@ -1,8 +1,8 @@
-# 🍽️ Sistema de Gestión de Restaurante
+# 🍽️ SISTEMA DE GESTIÓN DE RESTAURANTE VACA & VACO
 
 ## 👨‍🎓 Estudiante
 
-ALCOSER ALLAICA ANGEL RAMIRO
+RAMIRO ALCOSER ALLAICA
 
 ---
 
@@ -39,7 +39,6 @@ Aplicar correctamente:
 ```text
 restaurante_app/
 │
-├── main.py
 │
 ├── modelos/
 │   ├── __init__.py
@@ -50,6 +49,8 @@ restaurante_app/
 ├── servicios/
 │   ├── __init__.py
 │   └── restaurante.py
+│
+├── main.py
 │
 └── README.md
 ```
