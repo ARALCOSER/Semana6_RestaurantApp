@@ -7,9 +7,12 @@ Clase Bebida. Hereda de la clase padre Producto.
 from modelos.producto import Producto
 
 class Bebida(Producto):
-    # Clase hija que representa una bebida disponible. Aplica herencia y sobrescritura de métodos para el polimorfismo.
+    """
+    Clase hija que representa una bebida disponible. 
+    Aplica herencia y sobrescritura de métodos para el polimorfismo.
+    """
     def __init__(self, nombre, precio, volumen_ml, disponible=True):
-        # Inicializa una bebida reutilizando el constructor del padre, ademas la invocación al constructor de la clase padre (Producto)
+        # Inicializa una bebida reutilizando el constructor del padre (Producto)
         super().__init__(nombre, precio, disponible)
         # Atributo propio y específico de la clase Bebida
         self.volumen_ml = volumen_ml
@@ -21,4 +24,5 @@ class Bebida(Producto):
         print(f"Precio  : ${self.obtener_precio():.2f}")
         print(f"Volumen : {self.volumen_ml} ml")
         print(f"Estado  : {'Disponible' if self.disponible else 'Agotado'}")
+
 

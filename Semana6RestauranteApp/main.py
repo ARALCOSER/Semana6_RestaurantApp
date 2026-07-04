@@ -4,49 +4,94 @@ Punto de entrada del sistema restaurante_app. Aquí se crean los objetos y se de
 - Encapsulación, y
 - Polimorfismo
 """
-# Importación de clases desde los módulos correspondientes
 
+# Importación de clases desde los módulos correspondientes
 from modelos.platillo import Platillo
 from modelos.bebida import Bebida
 from servicios.restaurante import Restaurante
 
+def mostrar_menu():
+    """
+    Muestra el menú principal interactivo del sistema de restaurante.
+    """
+    print("\n==========================================================")
+    print("      SISTEMA DE GESTIÓN DEL RESTAURANTE VACA & VACO"       )
+    print("==========================================================")
+    print("1. Registrar platillo")
+    print("2. Registrar bebida")
+    print("3. Mostrar el menú completo")
+    print("4. Modifica el precio de un producto")
+    print("5. Salir del sistema")
+    print("===========================================================")
+
+def registrar_platillo(restaurante):
+    print("\n=== REGISTRAR NUEVO PLATILLO ===")
+    nombre = input("Ingrese el nombre del platillo: ")
+    try:
+        precio = float(input("Ingrese el precio: $"))
+        calorias = int(input("Ingrese las calorías (kcal): "))
+        
+        nuevo_platillo = Platillo(nombre, precio, calorias)
+        restaurante.agregar_producto(nuevo_platillo)
+    except ValueError:
+        print("Error: Precio o calorías inválidos. Registro cancelado.")
+
+def registrar_bebida(restaurante):
+    print("\n=== REGISTRAR NUEVA BEBIDA ===")
+    nombre = input("Ingrese el nombre de la bebida: ")
+    try:
+        precio = float(input("Ingrese el precio: $"))
+        volumen = int(input("Ingrese el volumen (ml): "))
+        
+        nueva_bebida = Bebida(nombre, precio, volumen)
+        restaurante.agregar_producto(nueva_bebida)
+    except ValueError:
+        print("Error: Precio o volumen inválidos. Registro cancelado.")
+
+def modificar_precio_interactivo(restaurante):
+    print("\n=== MODIFICAR PRECIO DE PRODUCTO ===")
+    if not restaurante.catalogo_productos:
+        print("No hay productos en el catálogo.")
+        return
+        
+    nombre_buscar = input("Ingrese el nombre del producto a modificar: ")
+    encontrado = False
+    
+    for producto in restaurante.catalogo_productos:
+        if producto.nombre.lower() == nombre_buscar.lower():
+            encontrado = True
+            try:
+                print(f"Precio actual de {producto.nombre}: ${producto.obtener_precio():.2f}")
+                nuevo_precio = float(input("Ingrese el nuevo precio: $"))
+                producto.cambiar_precio(nuevo_precio)
+            except ValueError:
+                print("Error: Debe ingresar un valor numérico.")
+            break
+            
+    if not encontrado:
+        print("Producto no encontrado en el catálogo.")
+
 def main():
-    # Punto de arranque de la aplicación de restaurante.
-    # 1. Instanciar el servicio principal del restaurante
-    mi_restaurante = Restaurante("vaca & Vaco")
-
-    print("\n") 
-    print("--- REGISTRANDO PRODUCTOS EN EL SISTEMA ---")
+    # Instanciamos el servicio principal del restaurante
+    mi_restaurante = Restaurante("Vaca & Vaco")
     
-    # 2. Crear al menos dos objetos de tipo Platillo
-    platillo1 = Platillo("Lomo a las finas Yerbas", 13.50, 650)
-    platillo2 = Platillo("Parrillada Doble", 18.75, 720)
-
-    # 3. Crear al menos dos objetos de tipo Bebida
-    bebida1 = Bebida("Jugo de Mora Natural", 2.50, 400)
-    bebida2 = Bebida("Vino sierra los Andes Malbec", 16.00, 180)
-
-    # 4. Agregar los objetos creados al catálogo del Restaurante
-    mi_restaurante.agregar_producto(platillo1)
-    mi_restaurante.agregar_producto(platillo2)
-    mi_restaurante.agregar_producto(bebida1)
-    mi_restaurante.agregar_producto(bebida2)
-
-    # 5. Muestra la información organizada en consola (Polimorfismo)
-    mi_restaurante.mostrar_menu_completo()
-
-    # 6. Muestra el correcto funcionamiento de la Encapsulación y Validación
-    print("\n--- PRUEBA DE ENCAPSULACIÓN Y VALIDACIÓN ---")
-    print(f"Precio actual de {platillo1.nombre}: ${platillo1.obtener_precio():.2f}")
-    
-    print("\nIntentando cambiar el precio a un valor negativo (-5.00):")
-    platillo1.cambiar_precio(-5.00)  # Saltara el error controlado
-    
-    print("\nIntentando cambiar el precio a un valor válido (19.99):")
-    platillo1.cambiar_precio(19.99)  # Debera actualizarse correctamente
-
-    # Volvemos a mostrar el menú para verificar los cambios finales
-    mi_restaurante.mostrar_menu_completo()
+    while True:
+        mostrar_menu()
+        opcion = input("Seleccione una opción: ")
+        
+        if opcion == "1":
+            registrar_platillo(mi_restaurante)
+        elif opcion == "2":
+            registrar_bebida(mi_restaurante)
+        elif opcion == "3":
+            mi_restaurante.mostrar_menu_completo()
+        elif opcion == "4":
+            modificar_precio_interactivo(mi_restaurante)
+        elif opcion == "5":
+            print("Saliendo del sistema... ¡Buen provecho!")
+            break
+        else:
+            print("Opción inválida. Por favor, seleccione una opción válida.")
 
 if __name__ == "__main__":
     main()
